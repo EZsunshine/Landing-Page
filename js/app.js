@@ -23,6 +23,7 @@ const navbarList = document.querySelector('.navbar__list');
 const sections = Array.from(document.querySelectorAll('section'));
 const fragment = document.createDocumentFragment();
 
+
 /**
  * End Global Variables
  * Start Helper Functions
@@ -32,7 +33,7 @@ const fragment = document.createDocumentFragment();
 // check which element is active
 function getActiveElem() {
     maxSection = sections[0];
-    minVal = 1000;
+    minVal = 1000000;
     for (item of sections) {
         let bounding = item.getBoundingClientRect();
         if (bounding.top > -300 & bounding.top < minVal) {
@@ -62,18 +63,17 @@ function addNavbarItem() {
 
 // Add class 'active' to section when near top of viewport
 function setActive () {
-     window.addEventListener('scroll', function (event) {
-         let section = getActiveElem();
-          section.classList.add('your-active-class');
-    
-             // set other sections as inactive
-             sections.forEach((section, i) => {
-              if (menu_item.id != section.id & menu_item.classList.contains('your-active-class')) {
-                 menu_item.classList.remove('your-active-class');
-             };
-         });
-     });
-    
+    window.addEventListener('scroll', function (event) {
+        let section = getActiveElem();
+         section.classList.add('your-active-class');
+            // set other sections as inactive
+            for (let item of sections) {
+                if (item.id != section.id & item.classList.contains('your-active-class')) {
+                    item.classList.remove('your-active-class');
+                }
+            }
+    });
+   
 };
 
 
@@ -104,5 +104,4 @@ navbarList.appendChild(fragment);
 // Scroll to section on link click
 navbarList.addEventListener('click', scrollToSection);
 // Set sections as active
-setActive();
-
+setActive()
